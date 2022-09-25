@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>GBC</title>
+      <!-- favicon -->
+      <link rel="icon" type="image/png" sizes="32x32" href="/faviconT54.ico">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+      <!-- #region style -->
+    <style>
+      tr.feed:nth-child(even) {background-color: #0B567B;}
+      tr.feed:nth-child(odd) {background-color: #06354C;}
+      tr:hover {background-color: #404040;}    
+      
+      tr.notifsLine:hover { background: #4a7ba8; }
+      tr.notifsLine:hover { background: #2bd9a2; }
+
+      .tableQuotes
+      {
+        font-size:12px; 
+        color:#dbe9e9;
+        text-align:center;
+        white-space: nowrap;
+        table-layout: fixed;
+        width: 100%;
+      }
+ 
+      #quotesWindow{
+        width    : 100%; 
+        height   : 99%;    
+        overflow : auto;
+        float    :left;
+        text-align: center;
+      }
+
+      #quotesWindow tbody td, thead th {
+          width: 16.5%;   
+      }
+
+      .connectAll
+      {
+        padding:2px;
+        font-size:12px;
+        height:40px;
+        width:95px;
+        text-align:center;
+        border: 1px solid #4b75ce;
+        border-color: #03D680;
+        color:white;
+        background-color: #5E00A8;  
+      }
+
+      .connectionButton
+      {
+        padding:2px;
+        font-size:11px;
+        height:30px;
+        width:70px;
+        text-align:center;
+        border: 1px solid #4b75ce;
+        border-color: #03D680;
+        color:white;
+      }
+    
+      .networkSelection
+      {
+        border-radius: 0px;
+        height:20px;
+        width:70px;
+        font-size:10px;
+        padding:2px;
+        text-align:center;
+        color: white;
+        background-color:#003068
+      }
+
+    </style>
+    <!-- #endregion style -->
+
+  </head>
+  <body style="background-color:black">
+      <div id="radarDiv" style="float:left; width:100%; height: 97vh; background-color: #343d46; margin-bottom: 0px; border: 1px solid coral; padding-bottom: 25px;">
+
+        <!-- #region STATUS -->
+        <div style="background-color:#03315a; width:100%; height:7vh;">
+            <div style="width:10%; float:left; background-color: #03315a;">
+              <img src="/faviconT54.ico" alt="logo" width="50px" height="50" style="float:left; margin: 5px;">
+              <label style="height:100%; float:left; background-color:#03315a; color:white; width:80px; display:block; text-align:center; font-size: 15px; margin: 5px;" >Governance Broadcasting Channel Manager</label>
+            </div>
+            <div style="  background-color: #03315a;">
+            <table style="height:100%; background-color: #03315a; color:white; font-size: 12px; width:90%;">
+              <tr>
+                <td style="width:80px; text-align:center;">Block Number</td>
+                <td style="text-align:center;"><label id="blockNum_lbl" style="background-color:#03315a; color:white; width:80px; text-align:center; font-size: 12px;" >...............................</label></td>
+                <td style="width:80px; text-align:center;">Block Time</td>
+                <td style="text-align:center;"><label id="blockTS_lbl" style="background-color:#03315a; color:white; width:100px;; text-align:center; font-size: 12px;" >...............................</label></td>
+                <td style="width:80px; text-align:center;">Last Update</td>
+                <td style="text-align:center;"><label id="lastUpdate_lbl" style="background-color:#03315a; color:white; width:80px; text-align:center; font-size: 12px;" >...............................</label></td>
+                <!-- <td style="width:80px; text-align:center;">Next Update</td>
+                <td style="text-align:center;"><label id="nextUpdate_lbl" style="background-color:#03315a; color:white; width:80px; text-align:center; font-size: 12px;" >...............................</label></td> -->
+              
+                <td style="width:30px; text-align:center;">Status:</td>
+                <td id="networkConnection" style="width:150px; text-align:center;">Not Connected to a Network</td>
+                <td style="width:10px;"></td>
+                <td class="networkSelection">
+                  <select id="network_selection" class="networkSelection"  name="" style="font-size: 11px; width:150px;">
+                    <option value="MoonbaseAlpha" selected>MoonbaseAlpha</option>
+                    <option value="Moonbeam" >Moonbeam</option>
+                    <option value="Moonriver" >Moonriver</option>
+                  </select>
+                </td>
+                <td>
+                  <button id="connectToNetworkBtn" class="connectAll" type="button" name="button" style="margin-top:2px; margin-left:5px; height:25px;">Connect</button>
+                </td>
+              </tr>
+            </table>
+            </div>
+        </div>
+        <!-- #endregion STATUS -->
+
+
+        <!-- #region ERC20 Management -->
+        <div style="height:15vh; margin-top:0px; float:left; width:100%">
+            <label style="background-color:#276DAB; color:white; width:100%; display:block; text-align:center;">Channel Specifications</label>
+            <table class="tableQuotes">
+              <!-- <thead style="background: #20272e; color:#faf9f8;">
+                <tr>
+                  <th class="" style="width:100px;"></th>
+                  <th class="" style="width:350px;">ERC20 Address</th>
+                  <th class="" style="width:350px;">Account Address</th>
+                  <th class="" style="width:150px;">Amount </th>
+                  <th class="" style="width:150px;"></th>
+                  <th class="" style="width:150px;"></th>
+                </tr>
+              </thead>  -->
+              <br>
+              <tbody>
+                <tr>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Admininstrator</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_admin" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">ID</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_Id" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                </tr>
+                <tr>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Creation Block Number</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_block" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Name</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_name" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                </tr>
+
+                <tr>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Creation Timestmap</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_timestamp" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Ticker</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_ticker" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                </tr>
+
+                <tr>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Active</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_active" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class="" style="width:100px;">Metadata CID</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="cha_metadata" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                </tr>
+
+
+                <!-- <tr>
+                  <td class="" style="width:100px;">Allowance</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="allowance_erc20address" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="allowance_Accountaddress" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"><button id="getAllowance_btn" class="connectAll" type="button" name="button" style="margin-top:2px; margin-left:5px; width:150px; height: 20px; ">Get Allowance</button></td>
+                  <td class=""  style="width:150px;"><label id="getAllowance_lbl" style="color:#a7ff04; width:95%;"></label></td>
+                </tr>
+
+                <tr>
+                  <td class="" style="width:100px;">Administrator</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="admin_erc20address" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:350px;"></td>
+                  <td class=""  style="width:150px;"></td>
+                  <td class=""  style="width:150px;"><button id="getAdmin_btn" class="connectAll" type="button" name="button" style="margin-top:2px; margin-left:5px; width:150px; height: 20px; ">Get Administrator</button></td>
+                  <td class=""  style="width:150px;"><label id="getAdmin_lbl" style="color:#a7ff04; width:95%;"></label></td>
+                </tr>
+
+                <tr>
+                  <td class="" style="width:100px;">Mint</td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="mint_erc20address" style="background-color: #3a649c; color: floralwhite; width:95%; font-weight: bold; text-align: center; " placeholder="ensure Administrator EOA is ERC20 admin"/></td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="mint_Accountaddress" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:350px;"><input type="text" className="form-control text-center" id="mint_amount" style="background-color: #3a649c; color: floralwhite; width:95%;  font-weight: bold; text-align: center; " placeholder=""/></td>
+                  <td class=""  style="width:150px;"><button id="mint_btn" class="connectAll" type="button" name="button" style="margin-top:2px; margin-left:5px; width:150px; height: 20px; ">Mint Tokens</button></td>
+                  <td class=""  style="width:150px;"><label id="mint_lbl" style="color:#a7ff04; width:95%;"></label></td>
+                </tr> -->
+
+              </tbody>
+            </table>
+          </div>
+          <!-- #endregion ERC20 Management -->
+
+
+
+            <!-- #region FRESH SUBMITTED NOTIFICATIONS -->
+             <div style="height:2vh; margin-top:0px; float:left; width:100%; overflow:auto;">
+               <label style="margin-top:0px; background-color:#276DAB; color:white; width:100%; display:block; text-align:center;">Channel Subscribers</label>
+             </div>
+             <div style="height:20vh; margin-top:0px; float:left; width:100%; overflow:auto;">
+              <div id="headersTable">   
+                  <table class="tableQuotes">
+                    <thead style="background: #20272e; color:#faf9f8; overflow:auto;"> 
+                      <tr>
+                        <th class="">Subscriber Address</th>
+                        <th class="">Encryopted Mobile Token</th>
+                    </thead> 
+                    <tbody></tbody>
+                  </table>
+              </div>
+              <div id="subscribersWindow"  style="margin-top:-2px; ">  
+                  <table id="tQuotes" class="tableQuotes">
+                    <thead>  <tr></tr> </thead> 
+                    <tbody id="subscriberTable" style="position:relative; overflow:auto;"></tbody>
+                  </table>
+              </div>
+          </div>
+          <!-- #endregion LIVE QUOTES -->
+
+
+          <!-- #region FRESH SUBMITTED NOTIFICATIONS -->
+          <div style="height:2vh; margin-top:0px; float:left; width:100%;">
+            <label style="background-color:#276DAB; color:white; width:100%; display:block; text-align:center;">Fresh Submitted Notifications</label>
+          </div> 
+          <div style="height:52vh; margin-top:0px; float:left; width:100%;  overflow:auto;">
+            <!-- <label style="background-color:#276DAB; color:white; width:100%; display:block; text-align:center;">Fresh Submitted Notifications</label> -->
+            <div id="headersTable">   
+                <table class="tableQuotes">
+                  <thead style="background: #20272e; color:#faf9f8;">
+                    <tr>
+                      <th class="">id</th>
+                      <th class="">eventTrigger</th>
+                      <th class="">Block Number</th>
+                      <th class="">Timestamp</th>
+                      <th class="">Title</th>
+                      <th class="">Body</th>
+                    </tr>
+                  </thead> 
+                  <tbody></tbody>
+                </table>
+            </div>
+            <div id="quotesWindow"  style="margin-top:-2px; ">  
+                <table id="tQuotes" class="tableQuotes">
+                  <thead>  <tr></tr> </thead> 
+                  <tbody id="notifsTable" style="position:relative; overflow:auto;"></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- #endregion   -->
+
+      </div>    
+      
+
+
+
+      <!-- *** LIBRARIES *** -->
+      <script src="/js/libs//jquery-3.3.1.min.js" type="text/javascript"> </script>
+      <script src="/socket.io/socket.io.js">  </script>
+      <script src="/js/libs/moment.js"></script>
+      <script src="/js/libs/mustache.js"></script>
+      <script src="/js/index.js"></script>
+
+      <script id="notifsTemplate" type="text/template">
+        <tr class="notifsLine feed">
+          <td style="white-space: nowrap">{{id}}</td>
+          <td style="white-space: nowrap">{{eventTrigger}}</td>
+          <td style="white-space: nowrap">{{blockNum}}</td>
+          <td style="white-space: nowrap">{{timestamp}}</td>
+          <td style="white-space: nowrap">{{title}}</td>
+          <td style="white-space: nowrap">{{body}}</td>
+        </tr>
+      </script>
+
+      <script id="subscribersTemplate" type="text/template">
+        <tr class="notifsLine feed">
+          <td style="white-space: nowrap">{{address}}</td>
+          <td style="white-space: nowrap"></td>
+        </tr>
+      </script>
+
+  </body>
+</html>
