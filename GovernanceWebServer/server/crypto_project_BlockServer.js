@@ -197,7 +197,8 @@ const writeToJSON = (saveFileAtPath,dataFile) => {
 //     body
 // }
 
-const url = 'https://api.subquery.network/sq/Entity54/MoonbaseAlphaGov' ;
+const url = 'https://api.subquery.network/sq/Entity54/governancemoonbasealpha' ;
+// const url = 'https://api.subquery.network/sq/Entity54/MoonbaseAlphaGov' ;
 // const url = 'https://api.subquery.network/sq/Entity54/MoonbaseAlphaGovernance' ;
 
 //#region sendGraphQLRequestFromNum
